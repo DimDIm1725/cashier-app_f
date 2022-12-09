@@ -1,8 +1,10 @@
 <template>
   <div>
-    <v-row>
+    <v-row align="center">
       <v-col cols="10">
-        Search
+        <v-autocomplete label="Products" placeholder="Start typing to search" :search-input.sync="search"
+          :loading="isLoading" :items="itemsSearch" item-text="title" item-value="id" v-model="selectedSearch"
+          return-object hide-no-data></v-autocomplete>
       </v-col>
       <v-col cols="2">
         <v-menu>
@@ -14,7 +16,7 @@
 
           <v-list>
             <v-list-item-group v-model="categoryId">
-              <v-list-item v-for="(category, index) in categories" :value="category.id" :key="category.id"
+              <v-list-item v-for="(category, index) in categories" :key="category.id" :value="category.id"
                 :disabled="(category.id === categoryId)">
                 <v-list-item-title>{{ category.title }}</v-list-item-title>
               </v-list-item>
@@ -40,6 +42,7 @@
 
 <script>
 export default ({
+  name: 'Products',
   data() {
     return {
       categoryId: false,
@@ -54,7 +57,16 @@ export default ({
         { id: 3, title: 'Canon Eos 750d', thumbnail: 'canon-eos-750d.png', price: 5400000, categoryId: 2 },
         { id: 4, title: 'Iphone 6 Silver', thumbnail: 'iphone-6-silver.png', price: 2500000, categoryId: 1 },
         { id: 5, title: 'Galaxy A3', thumbnail: 'samsung-galaxy-A3.png', price: 3000000, categoryId: 1 },
-      ]
+      ],
+      search: null,
+      isLoading: false,
+      itemsSearch: [],
+      selectedSearch: null
+    }
+  },
+  methods: {
+    resetSearchCategory() {
+      this.categoryId = false
     }
   },
   computed: {
@@ -63,7 +75,23 @@ export default ({
         return this.products.filter(s => s.categoryId === this.categoryId)
       }
 
+      if (this.selectedSearch) {
+        return this.products.filter(s => s.title === this.selectedSearch.title)
+      }
+
       return this.products
+    }
+  },
+  watch: {
+    search(val) {
+      this.isLoading = true
+      setTimeout(() => {
+        this.itemsSearch = this.products.filter(e => {
+          this.isLoading = false
+          this.resetSearchCategory()
+          return e.title
+        })
+      }, 1000)
     }
   }
 })
