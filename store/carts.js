@@ -2,6 +2,22 @@ export const state = () => ({
   items: [],
 })
 
+export const getters = {
+  cartItems: (state, getters, rootState) => {
+    return state.items.map(({ id, quantity }) => {
+      let product = rootState.products.products.find(
+        (product) => product.id === id
+      )
+      return {
+        id: id,
+        title: product.title,
+        price: product.price,
+        quantity,
+      }
+    })
+  },
+}
+
 export const mutations = {
   addItem(state, id) {
     state.items.push({
