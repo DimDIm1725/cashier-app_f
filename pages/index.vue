@@ -5,6 +5,7 @@
     </v-col>
     <v-col cols="4" class="frame-content white">
       ORDERS
+      <Order />
     </v-col>
   </v-row>
 </template>
