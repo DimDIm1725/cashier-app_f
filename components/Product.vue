@@ -3,7 +3,7 @@
     <v-row align="center">
       <v-col cols="10">
         <v-autocomplete label="Products" placeholder="Start typing to search" :search-input.sync="search"
-          :loading="isLoading" :items="itemsSearch" item-text="title" item-value="id" v-model="selectedSearch"
+          :loading="isLoading" :items="itemsSearch" item-text="title" item-value="_id" v-model="selectedSearch"
           return-object hide-no-data></v-autocomplete>
       </v-col>
       <v-col cols="2">
@@ -16,8 +16,8 @@
 
           <v-list>
             <v-list-item-group>
-              <v-list-item v-for="(category, index) in categories" :key="category.id" :value="category.id"
-                :disabled="(category.id === categoryId)" @change="updateCategoryId(category.id)">
+              <v-list-item v-for="(category, index) in categories" :key="category._id" :value="category._id"
+                :disabled="(category._id === categoryId)" @change="updateCategoryId(category._id)">
                 <v-list-item-title>{{ category.title }}</v-list-item-title>
               </v-list-item>
             </v-list-item-group>
@@ -26,8 +26,8 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col v-for="(product, index) in filteredProducts" :key="product.id" cols="2">
-        <v-card @click="addToCart(product.id)" :title="product.title" :ripple="true">
+      <v-col v-for="(product, index) in filteredProducts" :key="product._id" cols="2">
+        <v-card @click="addToCart(product._id)" :title="product.title" :ripple="true">
           <v-card-action class="img-product">
             <v-img :src="require(`@/assets/images/products/${product.thumbnail}`)"></v-img>
           </v-card-action>
@@ -56,7 +56,9 @@ export default ({
   methods: {
     ...mapActions({
       updateCategoryId: 'products/updateCategoryId',
-      addToCart: 'carts/addToCart'
+      addToCart: 'carts/addToCart',
+      fetchProducts: 'products/fetchProducts',
+      fetchCategories: 'products/fetchCategories',
     }),
     resetSearchCategory() {
       this.categoryId = false
@@ -91,6 +93,10 @@ export default ({
         })
       }, 1000)
     }
+  },
+  mounted() {
+    this.fetchProducts()
+    this.fetchCategories()
   }
 })
 </script>

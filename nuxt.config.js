@@ -1,6 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  // Change default port
+  server: {
+    port: 7000,
+  },
+
   // Disable SSR
   ssr: false,
 
