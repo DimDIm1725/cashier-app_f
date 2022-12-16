@@ -28,9 +28,9 @@
     <v-row>
       <v-col v-for="(product, index) in filteredProducts" :key="product._id" cols="2">
         <v-card @click="addToCart(product._id)" :title="product.title" :ripple="true">
-          <v-card-action class="img-product">
+          <v-card-actions>
             <v-img :src="require(`@/assets/images/products/${product.thumbnail}`)"></v-img>
-          </v-card-action>
+          </v-card-actions>
           <v-card-text align="center" class="product-title">
             {{ product.title }}
           </v-card-text>
@@ -61,17 +61,13 @@ export default ({
       fetchCategories: 'products/fetchCategories',
     }),
     resetSearchCategory() {
-      this.categoryId = false
+      this.updateCategoryId(0)
     }
   },
   computed: {
     filteredProducts() {
       if (this.categoryId) {
-        return this.products.filter(s => s.categoryId === this.categoryId)
-      }
-
-      if (this.selectedSearch) {
-        return this.products.filter(s => s.title === this.selectedSearch.title)
+        return this.products.filter(product => product.categoryId === this.categoryId)
       }
 
       return this.products
@@ -92,6 +88,11 @@ export default ({
           return e.title
         })
       }, 1000)
+    },
+    selectedSearch(product) {
+      if (product) {
+        this.addToCart(product._id)
+      }
     }
   },
   mounted() {
@@ -106,9 +107,5 @@ export default ({
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.img-product {
-  padding: 5rem;
 }
 </style>
