@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col cols="5" offset="3" md="4" offset-md="4">
-        <v-card>
+        <v-card class="mb-2">
           <v-toolbar color="primary" class="white--text">
             Registration
           </v-toolbar>
@@ -19,6 +19,7 @@
             <v-btn color="primary">Register</v-btn>
           </v-card-actions>
         </v-card>
+        <p>Sudah punya akun? <a href="/login">login</a></p>
       </v-col>
     </v-row>
   </div>
