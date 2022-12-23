@@ -54,8 +54,10 @@ export default {
   },
   methods: {
     isWelcomeScreen() {
-      if (this.$router.currentRoute.path == '/') {
-        this.$router.push('/register')
+      if (!localStorage.welcomeScreen) {
+        if (this.$router.currentRoute.path == '/') {
+          this.$router.push('/register')
+        }
       }
     }
   },
@@ -65,6 +67,7 @@ export default {
     }
   },
   mounted() {
+    // localStorage.setItem("welcomeScreen", true)
     this.isWelcomeScreen()
   }
 }
