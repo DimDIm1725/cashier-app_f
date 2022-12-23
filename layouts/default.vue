@@ -47,15 +47,25 @@ export default {
           title: 'Welcome',
           to: '/',
         },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
-        },
       ],
       miniVariant: false,
       title: 'Cashier App',
     }
   },
+  methods: {
+    isWelcomeScreen() {
+      if (this.$router.currentRoute.path == '/') {
+        this.$router.push('/register')
+      }
+    }
+  },
+  watch: {
+    $route() {
+      this.isWelcomeScreen()
+    }
+  },
+  mounted() {
+    this.isWelcomeScreen()
+  }
 }
 </script>
