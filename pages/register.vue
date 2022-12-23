@@ -75,6 +75,8 @@ export default ({
       console.log(this.form);
       this.$axios.$post('http://localhost:3000/auth/register', this.form).then(response => {
         console.log(response);
+        // redirect ke halaman login
+        this.$router.push('/login')
       });
     }
   }
