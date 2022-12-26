@@ -20,7 +20,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onSubmit">Register</v-btn>
+            <v-btn color="primary" @click="onSubmit" :disabled="isDisable">Register</v-btn>
           </v-card-actions>
         </v-card>
         <p>Sudah punya akun? <a href="/login">login</a></p>
@@ -34,6 +34,7 @@ export default ({
   data() {
     return {
       emailExist: false,
+      isDisable: false,
       form: {
         fullname: '',
         email: '',
@@ -47,7 +48,7 @@ export default ({
         email: [
           v => !!v || 'Email is required',
           v => /.+@.+/.test(v) || 'Email invalid',
-          v => !!this.emailExist || 'Email already exist'
+          // v => !!this.emailExist || 'Email already exist'
         ],
         password: [
           v => !!v || 'Password is required',
@@ -72,12 +73,17 @@ export default ({
         });
     },
     onSubmit() {
+      this.isDisable = true;
       console.log(this.form);
-      this.$axios.$post('http://localhost:3000/auth/register', this.form).then(response => {
-        console.log(response);
-        // redirect ke halaman login
-        this.$router.push('/login')
-      });
+      this.$axios.$post('http://localhost:3000/auth/register', this.form)
+        .then(response => {
+          console.log(response);
+          this.isDisable = false;
+          // redirect ke halaman login
+          // this.$router.push('/login')
+        }).catch(error => {
+          this.isDisable = false;
+        });
     }
   }
 })
