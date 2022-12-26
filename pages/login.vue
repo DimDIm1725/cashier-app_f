@@ -14,7 +14,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onSubmit">Login</v-btn>
+            <v-btn color="primary" @click="onSubmit" :disabled="isDisable">
+              <span v-if="!isDisable">Login</span>
+              <v-progress-circular :value="20" color="primary" indeterminate v-else></v-progress-circular>
+            </v-btn>
           </v-card-actions>
         </v-card>
         <p>Belum punya akun? <a href="/register">register</a></p>
@@ -27,6 +30,7 @@
 export default ({
   data() {
     return {
+      isDisable: false,
       form: {
         email: '',
         password: '',
@@ -35,10 +39,15 @@ export default ({
   },
   methods: {
     onSubmit() {
-      this.$axios.$post('http://localhost:3000/auth/login', this.form).then(response => {
-        console.log(response);
-        // redirect ke halaman dashboard
-      });
+      this.isDisable = true;
+      this.$axios.$post('http://localhost:3000/auth/login', this.form)
+        .then(response => {
+          console.log(response);
+          this.isDisable = false;
+          // redirect ke halaman dashboard
+        }).catch(error => {
+          this.isDisable = false;
+        });
     }
   }
 })
