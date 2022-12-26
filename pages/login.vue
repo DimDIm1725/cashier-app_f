@@ -38,12 +38,21 @@ export default ({
     }
   },
   methods: {
+    storeWelcomeScreen() {
+      localStorage.setItem('welcomeScreen', true);
+    },
     onSubmit() {
       this.isDisable = true;
       this.$axios.$post('http://localhost:3000/auth/login', this.form)
         .then(response => {
           console.log(response);
           this.isDisable = false;
+
+          // store passed welcome screen
+          if (!localStorage.welcomeScreen) {
+            this.storeWelcomeScreen()
+          }
+
           // redirect ke halaman dashboard
         }).catch(error => {
           this.isDisable = false;
