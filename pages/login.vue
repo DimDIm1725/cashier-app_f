@@ -7,6 +7,9 @@
             Login
           </v-toolbar>
           <v-card-text>
+            <v-alert v-if="isError" color="red lighten-2" class="white--text">
+              {{ message }}
+            </v-alert>
             <v-form>
               <v-text-field name="email" label="Email" type="email" v-model="form.email"></v-text-field>
               <v-text-field name="password" label="Password" type="password" v-model="form.password"></v-text-field>
@@ -31,6 +34,8 @@ export default ({
   data() {
     return {
       isDisable: false,
+      message: '',
+      isError: false,
       form: {
         email: '',
         password: '',
@@ -56,6 +61,8 @@ export default ({
           // redirect ke halaman dashboard
           this.$router.push('/dashboard');
         }).catch(error => {
+          this.message = error.response.data.message;
+          this.isError = true;
           this.isDisable = false;
         });
     }
