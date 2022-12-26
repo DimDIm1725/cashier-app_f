@@ -20,7 +20,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onSubmit" :disabled="isDisable">Register</v-btn>
+            <v-btn color="primary" @click="onSubmit" :disabled="isDisable">
+              <span v-if="!isDisable">Register</span>
+              <v-progress-circular :value="20" color="primary" indeterminate v-else></v-progress-circular>
+            </v-btn>
           </v-card-actions>
         </v-card>
         <p>Sudah punya akun? <a href="/login">login</a></p>
