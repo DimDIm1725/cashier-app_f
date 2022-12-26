@@ -54,6 +54,7 @@ export default ({
           }
 
           // redirect ke halaman dashboard
+          this.$router.push('/dashboard');
         }).catch(error => {
           this.isDisable = false;
         });
