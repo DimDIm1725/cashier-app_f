@@ -47,20 +47,20 @@ export default ({
       },
       rules: {
         fullname: [
-          v => !!v || 'Fullname is required',
+          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Nama Lengkap' }),
         ],
         email: [
-          v => !!v || 'Email is required',
-          v => /.+@.+/.test(v) || 'Email invalid',
+          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Email' }),
+          v => /.+@.+/.test(v) || this.$t('EMAIL_INVALID'),
           // v => !!this.emailExist || 'Email already exist'
         ],
         password: [
-          v => !!v || 'Password is required',
-          v => v.length >= 6 || 'Password must be at least 6 characters',
+          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Kata Sandi' }),
+          v => v.length >= 6 || this.$t('FIELD_MIN_PASS', { field: 'Kata Sandi', min: 6 }),
         ],
         retype_password: [
-          v => !!v || 'Retype Password is required',
-          v => v === this.form.password || 'Retype Password must be same with Password',
+          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Ulangi Kata Sandi' }),
+          v => v === this.form.password || this.$t('FIELD_CONFIRM_PASS', { field: 'Kata Sandi', confirm: 'Ulangi Kata Sandi' }),
         ],
       }
     }
