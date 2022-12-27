@@ -26,13 +26,10 @@ export default ({
     })
   },
   mounted() {
-    // cek route list
-    console.log(this.$router)
-
     // cek auth
     if (!this.authenticated) {
       this.$router.push({
-        name: 'login___id',
+        name: 'login___' + this.$i18n.locale,
         params: { message: 'AUTH_REQUIRED' }
       })
     }
