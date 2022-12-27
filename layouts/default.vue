@@ -43,9 +43,19 @@ export default {
       drawer: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
+          icon: 'mdi-home',
+          title: 'Home',
           to: '/',
+        },
+        {
+          icon: 'mdi-login',
+          title: 'Login',
+          to: '/login',
+        },
+        {
+          icon: 'mdi-logout',
+          title: 'Logout',
+          to: '/logout',
         },
       ],
       miniVariant: false,
