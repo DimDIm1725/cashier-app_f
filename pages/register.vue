@@ -34,6 +34,7 @@
 
 <script>
 export default ({
+  middleware: ['unauthenticated'],
   data() {
     return {
       emailExist: false,
