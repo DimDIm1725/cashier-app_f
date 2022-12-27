@@ -78,6 +78,12 @@ export default ({
           this.isDisable = false;
         });
     }
+  },
+  mounted() {
+    if (this.$route.params.message == 'AUTH_REQUIRED') {
+      this.message = this.$route.params.message;
+      this.isError = true;
+    }
   }
 })
 </script>

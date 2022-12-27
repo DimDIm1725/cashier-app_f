@@ -1,4 +1,5 @@
 {
+  "AUTH_REQUIRED": "Anda harus login terlebih dahulu",
   "EMAIL_NOT_FOUND": "Email tidak ditemukan",
   "WRONG_PASSWORD": "Password yang anda masukkan salah"
 }
