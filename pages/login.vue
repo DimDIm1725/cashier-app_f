@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default ({
   data() {
     return {
@@ -43,6 +45,11 @@ export default ({
     }
   },
   methods: {
+    ...mapMutations('auth', {
+      setFullname: 'setFullname',
+      setAccessToken: 'setAccessToken',
+      setRefreshToken: 'setRefreshToken',
+    }),
     storeWelcomeScreen() {
       localStorage.setItem('welcomeScreen', true);
     },
@@ -57,6 +64,11 @@ export default ({
           if (!localStorage.welcomeScreen) {
             this.storeWelcomeScreen()
           }
+
+          // store auth data to cookie
+          this.setFullname(response.fullname);
+          this.setAccessToken(response.accessToken);
+          this.setRefreshToken(response.refreshToken);
 
           // redirect ke halaman dashboard
           this.$router.push('/dashboard');
