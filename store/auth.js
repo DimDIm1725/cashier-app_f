@@ -9,6 +9,7 @@ export const getters = {
     if (state.access_token) {
       return true
     }
+    return false
   },
 }
 

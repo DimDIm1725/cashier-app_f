@@ -35,32 +35,49 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'DefaultLayout',
   data() {
     return {
       clipped: false,
       drawer: false,
-      items: [
+      items: [],
+      originalItems: [
         {
           icon: 'mdi-home',
           title: 'Home',
           to: '/',
+          middleware: 'authenticated'
+        },
+        {
+          icon: 'mdi-account',
+          title: 'Account',
+          to: '/account',
+          middleware: 'authenticated'
         },
         {
           icon: 'mdi-login',
           title: 'Login',
           to: '/login',
+          middleware: 'unauthenticated'
         },
         {
           icon: 'mdi-logout',
           title: 'Logout',
           to: '/logout',
+          middleware: 'authenticated'
         },
       ],
       miniVariant: false,
       title: 'Cashier App',
     }
+  },
+  computed: {
+    ...mapGetters('auth', {
+      authenticated: 'authenticated',
+    })
   },
   methods: {
     isWelcomeScreen() {
@@ -69,16 +86,29 @@ export default {
           this.$router.push('/register')
         }
       }
+    },
+    filterSideMenu() {
+      this.items = this.originalItems.filter(item => {
+        if (this.authenticated) {
+          return item.middleware == 'authenticated';
+        } else {
+          return item.middleware == 'unauthenticated';
+        }
+      })
     }
   },
   watch: {
     $route() {
       this.isWelcomeScreen()
+    },
+    authenticated() {
+      this.filterSideMenu()
     }
   },
   mounted() {
     // localStorage.setItem("welcomeScreen", true)
     this.isWelcomeScreen()
+    this.filterSideMenu()
   }
 }
 </script>
