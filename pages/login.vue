@@ -58,7 +58,6 @@ export default ({
       this.isDisable = true;
       this.$axios.$post('http://localhost:3000/auth/login', this.form)
         .then(response => {
-          console.log(response);
           this.isDisable = false;
 
           // store passed welcome screen
