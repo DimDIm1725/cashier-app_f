@@ -46,28 +46,40 @@ export default {
       items: [],
       originalItems: [
         {
-          icon: 'mdi-home',
-          title: 'Home',
+          icon: 'mdi-view-dashboard-variant',
+          title: 'Dashboard',
+          to: '/dashboard',
+          middleware: ['authenticated']
+        },
+        {
+          icon: 'mdi-application',
+          title: 'Cashier',
           to: '/',
-          middleware: 'authenticated'
+          middleware: ['admin', 'cashier']
         },
         {
           icon: 'mdi-account',
           title: 'Account',
           to: '/account',
-          middleware: 'authenticated'
+          middleware: ['admin']
+        },
+        {
+          icon: 'mdi-fingerprint',
+          title: 'Absence',
+          to: '/absence',
+          middleware: ['authenticated']
         },
         {
           icon: 'mdi-login',
           title: 'Login',
           to: '/login',
-          middleware: 'unauthenticated'
+          middleware: ['unauthenticated']
         },
         {
           icon: 'mdi-logout',
           title: 'Logout',
           to: '/logout',
-          middleware: 'authenticated'
+          middleware: ['authenticated']
         },
       ],
       miniVariant: false,
@@ -89,10 +101,14 @@ export default {
     },
     filterSideMenu() {
       this.items = this.originalItems.filter(item => {
+        if (item.middleware.includes('employee')) {
+          return true
+        }
+
         if (this.authenticated) {
-          return item.middleware == 'authenticated';
+          return item.middleware.includes('authenticated')
         } else {
-          return item.middleware == 'unauthenticated';
+          return item.middleware.includes('unauthenticated')
         }
       })
     }
