@@ -1,3 +1,5 @@
+import jwt_decode from 'jwt-decode'
+
 export const state = () => ({
   access_token: null,
   refresh_token: null,
@@ -8,6 +10,12 @@ export const getters = {
   authenticated: (state) => {
     if (state.access_token) {
       return true
+    }
+    return false
+  },
+  user: (state) => {
+    if (state.access_token) {
+      return jwt_decode(state.access_token)
     }
     return false
   },

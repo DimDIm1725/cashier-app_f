@@ -69,11 +69,9 @@ export default ({
     checkEmail() {
       this.$axios.$post('http://localhost:3000/auth/check-email', this.form)
         .then(response => {
-          console.log(response);
           this.emailExist = false;
         }).catch(error => {
           this.emailExist = true;
-          console.log(error);
         });
     },
     onSubmit() {
@@ -81,10 +79,9 @@ export default ({
       console.log(this.form);
       this.$axios.$post('http://localhost:3000/auth/register', this.form)
         .then(response => {
-          console.log(response);
           this.isDisable = false;
-          // redirect ke halaman login
-          // this.$router.push('/login')
+          // jika berhasil redirect ke halaman login
+          this.$router.push('/login')
         }).catch(error => {
           this.isDisable = false;
         });

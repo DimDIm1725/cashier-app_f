@@ -89,6 +89,7 @@ export default {
   computed: {
     ...mapGetters('auth', {
       authenticated: 'authenticated',
+      user: 'user'
     })
   },
   methods: {
@@ -101,7 +102,7 @@ export default {
     },
     filterSideMenu() {
       this.items = this.originalItems.filter(item => {
-        if (item.middleware.includes('employee')) {
+        if (item.middleware.includes(this.user.role)) {
           return true
         }
 
