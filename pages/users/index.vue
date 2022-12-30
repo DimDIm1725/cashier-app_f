@@ -3,15 +3,18 @@
     <v-row class="frame-content">
       <v-col cols="10" offset="1">
         <v-card class="my-3">
-          <v-toolbar color="primary" class="white--text">
+          <v-toolbar color="primary" dark>
             Users
+            <v-spacer></v-spacer>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line
+              hide-details></v-text-field>
           </v-toolbar>
           <v-card-text>
             <div class="mb-4">
               <v-breadcrumbs class="pa-0" :items="breadcrumbs" />
             </div>
             <v-data-table :headers="headers" :items-per-page="10" :server-items-length="totalData" :items="users"
-              :loading="loading" :options.sync="options"
+              :loading="loading" :options.sync="options" :search.sync="search"
               :footer-props="{ itemsPerPageOptions: [10, 20, 30, 40, 50, 100] }" />
           </v-card-text>
         </v-card>
@@ -24,6 +27,7 @@
 export default ({
   data() {
     return {
+      search: '',
       loading: false,
       options: {},
       totalData: 0,
@@ -47,7 +51,7 @@ export default ({
     fetchUsers() {
       const { page, itemsPerPage } = this.options
       this.loading = true
-      this.$axios.$get(`http://localhost:3000/users?page=${page}&limit=${itemsPerPage}`)
+      this.$axios.$get(`http://localhost:3000/users?page=${page}&limit=${itemsPerPage}&search=${this.search}`)
         .then(response => {
           this.loading = false
           this.users = response.users.docs
@@ -68,6 +72,11 @@ export default ({
         this.fetchUsers()
       },
       deep: true
+    },
+    search: {
+      handler() {
+        this.fetchUsers()
+      }
     }
   }
 })
