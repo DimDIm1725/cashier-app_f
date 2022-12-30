@@ -10,7 +10,8 @@
             <div class="mb-4">
               <v-breadcrumbs class="pa-0" :items="breadcrumbs" />
             </div>
-            <v-data-table :headers="headers" :items-per-page="10" :items="users" />
+            <v-data-table :headers="headers" :items-per-page="10" :server-items-length="totalData" :items="users"
+              :footer-props="{ itemsPerPageOptions: [10, 20, 30, 40, 50, 100] }" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -22,6 +23,7 @@
 export default ({
   data() {
     return {
+      totalData: 0,
       users: [],
       headers: [
         { text: 'Full Name', value: 'fullname' },
@@ -42,6 +44,7 @@ export default ({
       this.$axios.$get(`http://localhost:3000/users`)
         .then(response => {
           this.users = response.users.docs
+          this.totalData = response.users.totalDocs
         }).catch(err => {
           console.log(err)
         });
