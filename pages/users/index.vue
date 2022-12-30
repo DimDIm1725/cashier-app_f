@@ -11,7 +11,7 @@
               <v-breadcrumbs class="pa-0" :items="breadcrumbs" />
             </div>
             <v-data-table :headers="headers" :items-per-page="10" :server-items-length="totalData" :items="users"
-              :footer-props="{ itemsPerPageOptions: [10, 20, 30, 40, 50, 100] }" />
+              :options.sync="options" :footer-props="{ itemsPerPageOptions: [10, 20, 30, 40, 50, 100] }" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -23,6 +23,7 @@
 export default ({
   data() {
     return {
+      options: {},
       totalData: 0,
       users: [],
       headers: [
@@ -41,13 +42,22 @@ export default ({
   },
   methods: {
     fetchUsers() {
-      this.$axios.$get(`http://localhost:3000/users`)
+      const { page, itemsPerPage } = this.options
+      this.$axios.$get(`http://localhost:3000/users?page=${page}&limit=${itemsPerPage}`)
         .then(response => {
           this.users = response.users.docs
           this.totalData = response.users.totalDocs
         }).catch(err => {
           console.log(err)
         });
+    }
+  },
+  watch: {
+    options: {
+      handler() {
+        this.fetchUsers()
+      },
+      deep: true
     }
   },
   mounted() {
