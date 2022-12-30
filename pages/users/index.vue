@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row>
+    <v-row class="frame-content">
       <v-col cols="10" offset="1">
         <v-card class="my-3">
           <v-toolbar color="primary" class="white--text">
@@ -10,6 +10,7 @@
             <div class="mb-4">
               <v-breadcrumbs class="pa-0" :items="breadcrumbs" />
             </div>
+            <v-data-table :headers="headers" :items-per-page="10" :items="users" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -21,6 +22,12 @@
 export default ({
   data() {
     return {
+      users: [],
+      headers: [
+        { text: 'Full Name', value: 'fullname' },
+        { text: 'Email', value: 'email' },
+        { text: 'Role', value: 'role' },
+      ],
       breadcrumbs: [
         {
           text: 'Users',
@@ -29,6 +36,19 @@ export default ({
         }
       ]
     }
+  },
+  methods: {
+    fetchUsers() {
+      this.$axios.$get(`http://localhost:3000/users`)
+        .then(response => {
+          this.users = response.users.docs
+        }).catch(err => {
+          console.log(err)
+        });
+    }
+  },
+  mounted() {
+    this.fetchUsers()
   }
 })
 </script>
