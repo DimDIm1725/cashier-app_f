@@ -59,8 +59,8 @@ export default {
         },
         {
           icon: 'mdi-account',
-          title: 'Account',
-          to: '/account',
+          title: 'User Management',
+          to: '/users',
           middleware: ['admin']
         },
         {
