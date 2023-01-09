@@ -10,8 +10,8 @@
             <v-form ref="form">
               <v-text-field name="fullname" label="Full Name" type="text" v-model="form.fullname"
                 :rules="rules.fullname"></v-text-field>
-              <v-text-field name="email" label="Email" type="email" v-model="form.email"
-                :rules="rules.email"></v-text-field>
+              <v-text-field name="email" label="Email" type="email" v-model="form.email" :rules="rules.email"
+                @keydown="checkEmailExist"></v-text-field>
               <v-text-field name="password" label="Password" type="password" v-model="form.password"
                 :rules="rules.password"></v-text-field>
               <v-text-field name="retype_password" label="Retype Password" type="password"
@@ -71,22 +71,27 @@ export default ({
     }
   },
   methods: {
+    checkEmailExist() {
+      this.emailExist = false;
+    },
     onSubmit() {
-      this.isDisable = true;
-      console.log(this.form);
-      this.$axios.$post('http://localhost:3000/users', this.form)
-        .then(response => {
-          this.isDisable = false;
-          // jika berhasil redirect ke halaman users
-          this.$router.push('/users')
-        }).catch(error => {
-          // email exist
-          if (error.response.data.message == "EMAIL_EXIST") {
-            this.emailExist = true
-            this.$refs.form.validate()
-          }
-          this.isDisable = false;
-        });
+      if (this.$refs.form.validate()) {
+        this.isDisable = true;
+        console.log(this.form);
+        this.$axios.$post('http://localhost:3000/users', this.form)
+          .then(response => {
+            this.isDisable = false;
+            // jika berhasil redirect ke halaman users
+            this.$router.push('/users')
+          }).catch(error => {
+            // email exist
+            if (error.response.data.message == "EMAIL_EXIST") {
+              this.emailExist = true
+              this.$refs.form.validate()
+            }
+            this.isDisable = false;
+          });
+      }
     }
   }
 })
