@@ -7,6 +7,7 @@
             Create User
           </v-toolbar>
           <v-card-text>
+            <v-breadcrumbs class="pa-0" :items="breadcrumbs" />
             <v-form ref="form">
               <v-text-field name="fullname" label="Full Name" type="text" v-model="form.fullname"
                 :rules="rules.fullname"></v-text-field>
@@ -40,6 +41,18 @@ export default ({
       emailExist: false,
       isDisable: false,
       roles: ['admin', 'cashier', 'employee'],
+      breadcrumbs: [
+        {
+          text: 'Users',
+          disabled: false,
+          to: '/users',
+          exact: true
+        },
+        {
+          text: 'Create',
+          disabled: true,
+        }
+      ],
       form: {
         fullname: '',
         email: '',
