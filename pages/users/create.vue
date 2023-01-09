@@ -7,7 +7,7 @@
             Create User
           </v-toolbar>
           <v-card-text>
-            <v-form>
+            <v-form ref="form">
               <v-text-field name="fullname" label="Full Name" type="text" v-model="form.fullname"
                 :rules="rules.fullname"></v-text-field>
               <v-text-field name="email" label="Email" type="email" v-model="form.email"
@@ -54,7 +54,7 @@ export default ({
         email: [
           v => !!v || this.$t('FIELD_REQUIRED', { field: 'Email' }),
           v => /.+@.+/.test(v) || this.$t('EMAIL_INVALID'),
-          // v => !!this.emailExist || 'Email already exist'
+          v => !this.emailExist || this.$t('EMAIL_EXIST'),
         ],
         password: [
           v => !!v || this.$t('FIELD_REQUIRED', { field: 'Kata Sandi' }),
@@ -80,6 +80,11 @@ export default ({
           // jika berhasil redirect ke halaman users
           this.$router.push('/users')
         }).catch(error => {
+          // email exist
+          if (error.response.data.message == "EMAIL_EXIST") {
+            this.emailExist = true
+            this.$refs.form.validate()
+          }
           this.isDisable = false;
         });
     }

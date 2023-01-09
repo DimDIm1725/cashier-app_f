@@ -3,7 +3,8 @@
   "EMAIL_NOT_FOUND": "Email tidak ditemukan",
   "WRONG_PASSWORD": "Password yang anda masukkan salah",
   "FIELD_REQUIRED": "{field} harus diisi",
-  "EMAIL_INVALID": "alamat email tidak valid",
+  "EMAIL_INVALID": "email tidak valid",
+  "EMAIL_EXIST": "email sudah terdaftar",
   "FIELD_MIN_PASS": "{field} minimal {min} karakter",
   "FIELD_CONFIRM_PASS": "{confirm} harus sama dengan {field}"
 }
