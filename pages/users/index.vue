@@ -10,8 +10,12 @@
               hide-details></v-text-field>
           </v-toolbar>
           <v-card-text>
-            <div class="mb-4">
+            <div class="d-flex mb-4">
               <v-breadcrumbs class="pa-0" :items="breadcrumbs" />
+              <v-spacer></v-spacer>
+              <v-btn to="/users/create" color="primary" elevation="3" small>
+                Add user <v-icon right>mdi-plus-circle</v-icon>
+              </v-btn>
             </div>
             <v-data-table :headers="headers" :items-per-page="10" :server-items-length="totalData" :items="users"
               :loading="loading" :options.sync="options" :search.sync="search"
