@@ -75,11 +75,11 @@ export default ({
           v => !this.emailExist || this.$t('EMAIL_EXIST'),
         ],
         password: [
-          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Kata Sandi' }),
-          v => v.length >= 6 || this.$t('FIELD_MIN_PASS', { field: 'Kata Sandi', min: 6 }),
+          // v => v.length == 0 || !!v || this.$t('FIELD_REQUIRED', { field: 'Kata Sandi' }),
+          v => v.length == 0 || v.length >= 6 || this.$t('FIELD_MIN_PASS', { field: 'Kata Sandi', min: 6 }),
         ],
         retype_password: [
-          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Ulangi Kata Sandi' }),
+          // v => v.length == 0 || !!v || this.$t('FIELD_REQUIRED', { field: 'Ulangi Kata Sandi' }),
           v => v === this.form.password || this.$t('FIELD_CONFIRM_PASS', { field: 'Kata Sandi', confirm: 'Ulangi Kata Sandi' }),
         ],
         role: [
@@ -106,11 +106,11 @@ export default ({
       if (this.$refs.form.validate()) {
         this.isDisable = true;
         console.log(this.form);
-        this.$axios.$post('http://localhost:3000/users', this.form)
+        this.$axios.$put(`http://localhost:3000/users/${this.id}`, this.form)
           .then(response => {
             this.isDisable = false;
             // jika berhasil redirect ke halaman users
-            this.$router.push('/users')
+            // this.$router.push('/users')
           }).catch(error => {
             // email exist
             if (error.response.data.message == "EMAIL_EXIST") {
