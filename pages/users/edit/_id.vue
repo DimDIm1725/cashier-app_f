@@ -99,7 +99,11 @@ export default ({
           this.form.email = response.user.email;
           this.form.role = response.user.role;
         }).catch(error => {
-          console.log(error.response);
+          // jika id tidak ditemukan
+          this.$router.push({
+            name: 'users___' + this.$i18n.locale,
+            params: { message: 'ID_NOT_FOUND' }
+          })
         });
     },
     onSubmit() {
@@ -110,7 +114,10 @@ export default ({
           .then(response => {
             this.isDisable = false;
             // jika berhasil redirect ke halaman users
-            // this.$router.push('/users')
+            this.$router.push({
+              name: 'users___' + this.$i18n.locale,
+              params: { message: 'UPDATE_SUCCESS', fullname: this.form.fullname }
+            })
           }).catch(error => {
             // email exist
             if (error.response.data.message == "EMAIL_EXIST") {

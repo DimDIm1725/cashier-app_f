@@ -95,7 +95,10 @@ export default ({
           .then(response => {
             this.isDisable = false;
             // jika berhasil redirect ke halaman users
-            this.$router.push('/users')
+            this.$router.push({
+              name: 'users___' + this.$i18n.locale,
+              params: { message: 'CREATE_SUCCESS', fullname: this.form.fullname }
+            })
           }).catch(error => {
             // email exist
             if (error.response.data.message == "EMAIL_EXIST") {

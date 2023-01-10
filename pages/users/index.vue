@@ -10,6 +10,9 @@
               hide-details></v-text-field>
           </v-toolbar>
           <v-card-text>
+            <v-alert v-if="alert.show" :type="alert.type">
+              {{ alert.message }}
+            </v-alert>
             <div class="d-flex mb-4">
               <v-breadcrumbs class="pa-0" :items="breadcrumbs" />
               <v-spacer></v-spacer>
@@ -40,6 +43,11 @@
 export default ({
   data() {
     return {
+      alert: {
+        show: false,
+        type: '',
+        message: ''
+      },
       search: '',
       loading: false,
       options: {},
@@ -91,6 +99,27 @@ export default ({
       handler() {
         this.fetchUsers()
       }
+    }
+  },
+  mounted() {
+    if (this.$route.params.message == 'CREATE_SUCCESS') {
+      this.alert.show = true
+      this.alert.type = 'success'
+      this.alert.message = this.$t(this.$route.params.message, {
+        title: this.$route.params.fullname
+      })
+    }
+    if (this.$route.params.message == 'UPDATE_SUCCESS') {
+      this.alert.show = true
+      this.alert.type = 'success'
+      this.alert.message = this.$t(this.$route.params.message, {
+        title: this.$route.params.fullname
+      })
+    }
+    if (this.$route.params.message == 'ID_NOT_FOUND') {
+      this.alert.show = true
+      this.alert.type = 'error'
+      this.alert.message = this.$t(this.$route.params.message)
     }
   }
 })
