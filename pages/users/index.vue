@@ -19,7 +19,16 @@
             </div>
             <v-data-table :headers="headers" :items-per-page="10" :server-items-length="totalData" :items="users"
               :loading="loading" :options.sync="options" :search.sync="search"
-              :footer-props="{ itemsPerPageOptions: [10, 20, 30, 40, 50, 100] }" />
+              :footer-props="{ itemsPerPageOptions: [10, 20, 30, 40, 50, 100] }">
+              <template v-slot:item.actions="{ item }">
+                <v-btn :to="`/users/edit/${item._id}`" color="warning" icon>
+                  <v-icon small>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn color="error" icon>
+                  <v-icon small>mdi-delete</v-icon>
+                </v-btn>
+              </template>
+            </v-data-table>
           </v-card-text>
         </v-card>
       </v-col>
@@ -41,6 +50,7 @@ export default ({
         { text: 'Full Name', value: 'fullname', sortable: false },
         { text: 'Email', value: 'email', sortable: false },
         { text: 'Role', value: 'role', sortable: false },
+        { text: 'Actions', value: 'actions', sortable: false },
       ],
       breadcrumbs: [
         {
