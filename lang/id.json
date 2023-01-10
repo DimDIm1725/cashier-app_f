@@ -6,5 +6,8 @@
   "EMAIL_INVALID": "email tidak valid",
   "EMAIL_EXIST": "email sudah terdaftar",
   "FIELD_MIN_PASS": "{field} minimal {min} karakter",
-  "FIELD_CONFIRM_PASS": "{confirm} harus sama dengan {field}"
+  "FIELD_CONFIRM_PASS": "{confirm} harus sama dengan {field}",
+  "CREATE_SUCCESS": "Tambah data {title} berhasil",
+  "UPDATE_SUCCESS": "Perbarui data {title} berhasil",
+  "ID_NOT_FOUND": "ID tidak ditemukan"
 }
