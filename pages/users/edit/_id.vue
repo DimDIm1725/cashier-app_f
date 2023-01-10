@@ -54,7 +54,7 @@ export default ({
           exact: true
         },
         {
-          text: 'Create',
+          text: 'Edit',
           disabled: true,
         }
       ],
@@ -92,6 +92,16 @@ export default ({
     checkEmailExist() {
       this.emailExist = false;
     },
+    fetchData() {
+      this.$axios.$get(`http://localhost:3000/users/${this.id}`)
+        .then(response => {
+          this.form.fullname = response.user.fullname;
+          this.form.email = response.user.email;
+          this.form.role = response.user.role;
+        }).catch(error => {
+          console.log(error.response);
+        });
+    },
     onSubmit() {
       if (this.$refs.form.validate()) {
         this.isDisable = true;
@@ -113,7 +123,7 @@ export default ({
     }
   },
   mounted() {
-    alert(this.id)
+    this.fetchData()
   }
 })
 </script>
