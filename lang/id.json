@@ -9,5 +9,6 @@
   "FIELD_CONFIRM_PASS": "{confirm} harus sama dengan {field}",
   "CREATE_SUCCESS": "Tambah data {title} berhasil",
   "UPDATE_SUCCESS": "Perbarui data {title} berhasil",
+  "DELETE_SUCCESS": "Hapus data {title} berhasil",
   "ID_NOT_FOUND": "ID tidak ditemukan"
 }

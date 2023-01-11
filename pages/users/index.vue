@@ -109,6 +109,14 @@ export default ({
       this.$axios.$delete(`http://localhost:3000/users/${id}`)
         .then(response => {
           this.users = this.users.filter(user => user._id !== id)
+
+          // show alert
+          let params = {
+            message: 'DELETE_SUCCESS',
+            fullname: this.itemDelete.fullname
+          }
+          this.showAlert(params)
+
           this.closeDelete()
         }).catch(err => {
           console.log(err)
@@ -121,6 +129,34 @@ export default ({
     },
     closeDelete() {
       this.dialogDelete = false
+    },
+    showAlert(params) {
+      if (params.message == 'CREATE_SUCCESS') {
+        this.alert.show = true
+        this.alert.type = 'success'
+        this.alert.message = this.$t(params.message, {
+          title: params.fullname
+        })
+      }
+      if (params.message == 'UPDATE_SUCCESS') {
+        this.alert.show = true
+        this.alert.type = 'success'
+        this.alert.message = this.$t(params.message, {
+          title: params.fullname
+        })
+      }
+      if (params.message == 'DELETE_SUCCESS') {
+        this.alert.show = true
+        this.alert.type = 'success'
+        this.alert.message = this.$t(params.message, {
+          title: params.fullname
+        })
+      }
+      if (params.message == 'ID_NOT_FOUND') {
+        this.alert.show = true
+        this.alert.type = 'error'
+        this.alert.message = this.$t(params.message)
+      }
     }
   },
   watch: {
@@ -137,25 +173,7 @@ export default ({
     }
   },
   mounted() {
-    if (this.$route.params.message == 'CREATE_SUCCESS') {
-      this.alert.show = true
-      this.alert.type = 'success'
-      this.alert.message = this.$t(this.$route.params.message, {
-        title: this.$route.params.fullname
-      })
-    }
-    if (this.$route.params.message == 'UPDATE_SUCCESS') {
-      this.alert.show = true
-      this.alert.type = 'success'
-      this.alert.message = this.$t(this.$route.params.message, {
-        title: this.$route.params.fullname
-      })
-    }
-    if (this.$route.params.message == 'ID_NOT_FOUND') {
-      this.alert.show = true
-      this.alert.type = 'error'
-      this.alert.message = this.$t(this.$route.params.message)
-    }
+    this.showAlert(this.$route.params)
   }
 })
 </script>
