@@ -93,7 +93,7 @@ export default ({
       this.emailExist = false;
     },
     fetchData() {
-      this.$axios.$get(`http://localhost:3000/users/${this.id}`)
+      this.$axios.$get(`/users/${this.id}`)
         .then(response => {
           this.form.fullname = response.user.fullname;
           this.form.email = response.user.email;
@@ -110,7 +110,7 @@ export default ({
       if (this.$refs.form.validate()) {
         this.isDisable = true;
         console.log(this.form);
-        this.$axios.$put(`http://localhost:3000/users/${this.id}`, this.form)
+        this.$axios.$put(`/users/${this.id}`, this.form)
           .then(response => {
             this.isDisable = false;
             // jika berhasil redirect ke halaman users
