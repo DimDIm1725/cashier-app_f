@@ -91,3 +91,6 @@ sw.*
 
 # VS Code Settings
 .vscode
+
+# Environment
+.env

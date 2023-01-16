@@ -73,7 +73,7 @@ export default ({
       if (this.$refs.form.validate()) {
         this.isDisable = true;
         console.log(this.form);
-        this.$axios.$post('http://localhost:3000/auth/register', this.form)
+        this.$axios.$post('/auth/register', this.form)
           .then(response => {
             this.isDisable = false;
             // jika berhasil redirect ke halaman login

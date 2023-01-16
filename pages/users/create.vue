@@ -91,7 +91,7 @@ export default ({
       if (this.$refs.form.validate()) {
         this.isDisable = true;
         console.log(this.form);
-        this.$axios.$post('http://localhost:3000/users', this.form)
+        this.$axios.$post('/users', this.form)
           .then(response => {
             this.isDisable = false;
             // jika berhasil redirect ke halaman users

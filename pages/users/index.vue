@@ -91,7 +91,7 @@ export default ({
     fetchUsers() {
       const { page, itemsPerPage } = this.options
       this.loading = true
-      this.$axios.$get(`http://localhost:3000/users?page=${page}&limit=${itemsPerPage}&search=${this.search}`)
+      this.$axios.$get(`/users?page=${page}&limit=${itemsPerPage}&search=${this.search}`)
         .then(response => {
           this.loading = false
           this.users = response.users.docs
@@ -106,7 +106,7 @@ export default ({
         });
     },
     deleteConfirm(id) {
-      this.$axios.$delete(`http://localhost:3000/users/${id}`)
+      this.$axios.$delete(`/users/${id}`)
         .then(response => {
           this.users = this.users.filter(user => user._id !== id)
 
