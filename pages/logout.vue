@@ -19,16 +19,12 @@ export default ({
   middleware: ['authenticated'],
   methods: {
     ...mapMutations('auth', {
-      setFullname: 'setFullname',
-      setAccessToken: 'setAccessToken',
-      setRefreshToken: 'setRefreshToken',
+      logout: 'logout'
     })
   },
   mounted() {
     setTimeout(() => {
-      this.setFullname(null);
-      this.setAccessToken(null);
-      this.setRefreshToken(null);
+      this.logout();
       this.$router.push('/login');
     }, 1000)
   }

@@ -1,4 +1,4 @@
-export default function ({ $axios, store }) {
+export default function ({ $axios, store, redirect }) {
   // access token
   $axios.onRequest((config) => {
     if (store.getters['auth/authenticated']) {
@@ -11,10 +11,11 @@ export default function ({ $axios, store }) {
   $axios.onResponseError((error) => {
     if (error.response.status === 401) {
       return $axios
-        .$post('/auth/refresh-token', {
+        .$post('auth/refresh-token', {
           refreshToken: store.state.auth.refresh_token,
         })
         .then((response) => {
+          console.log(response)
           store.commit('auth/setAccessToken', response.accessToken)
           store.commit('auth/setRefreshToken', response.refreshToken)
 
