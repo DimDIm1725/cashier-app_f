@@ -34,6 +34,9 @@ import { mapMutations } from 'vuex';
 
 export default ({
   middleware: ['unauthenticated'],
+  head: {
+    title: 'Login'
+  },
   data() {
     return {
       isDisable: false,
