@@ -35,6 +35,9 @@
 <script>
 export default ({
   middleware: ['unauthenticated'],
+  head: {
+    title: 'Register'
+  },
   data() {
     return {
       emailExist: false,

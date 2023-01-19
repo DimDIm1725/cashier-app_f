@@ -57,6 +57,9 @@
 
 <script>
 export default ({
+  head: {
+    title: 'Users'
+  },
   data() {
     return {
       alert: {

@@ -36,6 +36,9 @@
 <script>
 export default ({
   middleware: ['authenticated'],
+  head: {
+    title: 'Edit User'
+  },
   asyncData({ params }) {
     return {
       id: params.id

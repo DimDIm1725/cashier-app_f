@@ -13,5 +13,8 @@
 export default {
   name: 'IndexPage',
   middleware: ['authenticated'],
+  head: {
+    title: 'Cashier'
+  }
 }
 </script>
